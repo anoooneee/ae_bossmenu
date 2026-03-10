@@ -28,4 +28,4 @@ Need help with installation or want to report a bug? Join our community on Disco
 ## 📄 License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Developed with ❤️ for the community.
+Please leave a feedback on our discord
