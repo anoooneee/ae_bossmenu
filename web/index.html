@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Boss menu</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    </head>
+<body>
+    <div id="main-container">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="logo.png" alt="Logo">
+                </div>
+                <div class="sidebar-title">
+                    <h1 id="job-title">LSPD</h1>
+                    <p>Správa společnosti</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Přehled</span>
+                </button>
+                <button class="nav-item" data-section="employees">
+                    <i class="fas fa-users"></i>
+                    <span>Zaměstnanci</span>
+                </button>
+                <button class="nav-item" data-section="finance">
+                    <i class="fas fa-wallet"></i>
+                    <span>Finance</span>
+                </button>
+                <button class="nav-item" data-section="salaries">
+                    <i class="fas fa-money-check-dollar"></i>
+                    <span>Mzdy</span>
+                </button>
+            </nav>
+
+            <button id="close-btn" class="sidebar-close">
+                <i class="fas fa-toggle-off"></i>
+                <span>Odhlásit</span>
+            </button>
+        </div>
+
+        <div id="content-area">
+            <div class="section-view active" id="dashboard-section">
+                <div class="section-header-main">
+                    <h2>Přehled</h2>
+                    <p>Přehled statistik a výkonnosti společnosti</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Počet zaměstnanců</span>
+                            <span class="stat-value" id="stat-employees">0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Účet společnosti</span>
+                            <span class="stat-value" id="stat-money">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Online zaměstnanci</span>
+                            <span class="stat-value" id="stat-online">0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Součet mezd</span>
+                            <span class="stat-value" id="stat-payroll">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Vklady (týden)</span>
+                            <span class="stat-value" id="stat-deposits">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Výbery (týden)</span>
+                            <span class="stat-value" id="stat-withdrawals">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Rychlé akce</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" data-section="employees">
+                                <i class="fas fa-users"></i>
+                                <span>Správa zaměstnanců</span>
+                            </button>
+                            <button class="quick-action-btn" data-section="finance">
+                                <i class="fas fa-wallet"></i>
+                                <span>Finance</span>
+                            </button>
+                            <button class="quick-action-btn" data-section="salaries">
+                                <i class="fas fa-money-check-dollar"></i>
+                                <span>Mzdová tabulka</span>
+                            </button>
+                            <button class="quick-action-btn" data-section="dashboard" data-anchor="announcement-card">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Oznámení</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card" id="announcement-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bullhorn"></i> Interní oznámení</h3>
+                        </div>
+                        <div class="announcement-card">
+                            <label for="announcement-input">Sdílej pokyny s celou frakcí</label>
+                            <textarea id="announcement-input" maxlength="180" placeholder="Napiš krátké oznámení..."></textarea>
+                            <div class="announcement-actions">
+                                <span class="announcement-counter"><span id="announcement-counter">0</span>/180 znaků</span>
+                                <button id="announcement-btn" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Odeslat oznámení</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Posledná aktivita</h3>
+                            <button class="view-all-btn" id="view-all-activities-btn">
+                                <i class="fas fa-expand"></i>
+                                <span>Zobrazit všechny</span>
+                            </button>
+                        </div>
+                        <div class="activity-list" id="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <span class="activity-text">Nový zaměstnanec přijat</span>
+                                    <span class="activity-time">Před 2 hodinami</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon warning">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <span class="activity-text">Výběr $5,000</span>
+                                    <span class="activity-time">Před 5 hodinami</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <span class="activity-text">Vklad $10,000</span>
+                                    <span class="activity-time">Včera</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card chart-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Finanční přehled</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="section-view" id="employees-section">
+                <div class="section-header-flex">
+                    <div class="section-header-main">
+                        <h2>Správa zaměstnanců</h2>
+                        <p>Spravujte zaměstnance vaší společnosti</p>
+                    </div>
+                    <button id="refresh-employees-btn" class="view-all-btn">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Obnovit</span>
+                    </button>
+                </div>
+
+                <div class="employee-toolbar">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="employee-search" placeholder="Hledat podle jména nebo hodnosti...">
+                    </div>
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">Všichni</button>
+                        <button class="filter-btn" data-filter="online">Online</button>
+                        <button class="filter-btn" data-filter="offline">Offline</button>
+                    </div>
+                </div>
+
+                <div class="employees-container">
+                    <ul id="employee-list">
+                    </ul>
+                </div>
+
+                <div class="employee-actions">
+                    <button id="hire-btn" class="btn btn-primary btn-full">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Najmout osobu</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="section-view" id="finance-section">
+                <div class="section-header-main">
+                    <h2>Finance</h2>
+                    <p>Spravujte finance společnosti</p>
+                </div>
+
+                <div class="finance-content">
+                    <div class="money-display-large">
+                        <div class="money-icon-large">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="money-amount-large">
+                            <span class="money-label">Dostupné prostředky:</span>
+                            <span id="society-money">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="money-actions-large">
+                        <div class="input-group-large">
+                            <label>Suma transakce</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-coins"></i>
+                                <input type="number" id="amount-input" placeholder="Zadej sumu...">
+                            </div>
+                        </div>
+                        <div class="quick-amounts">
+                            <button class="quick-amount-btn" data-amount="1000">+1 000</button>
+                            <button class="quick-amount-btn" data-amount="5000">+5 000</button>
+                            <button class="quick-amount-btn" data-amount="10000">+10 000</button>
+                            <button class="quick-amount-btn" data-amount="25000">+25 000</button>
+                        </div>
+                        <div class="action-buttons-large">
+                            <button id="deposit-btn" class="btn btn-success btn-large">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>Vložit peníze</span>
+                            </button>
+                            <button id="withdraw-btn" class="btn btn-warning btn-large">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Vybrat peníze</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-view" id="salaries-section">
+                <div class="section-header-flex salaries-header">
+                    <div class="section-header-main">
+                        <h2>Správa výplatních pásek</h2>
+                        <p>Nastavte výplaty a bonusy pro jednotlivé hodnosti</p>
+                    </div>
+                    <button id="save-salaries-btn" class="btn btn-success compact-save">
+                        <i class="fas fa-save"></i>
+                        <span>Uložit změny</span>
+                    </button>
+                </div>
+
+                <div class="salaries-container">
+                    <div id="grades-list"></div>
+                </div>
+            </div>
+        </div>
+        <div id="brand-watermark">cyril bossmenu</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
